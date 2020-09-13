@@ -1,6 +1,7 @@
 import { RequestHandler, Request, Response, NextFunction } from 'express';
 import { BAD_REQUEST } from 'http-status-codes';
 import { Schema, ValidationErrorItem } from 'joi';
+import { ResponseBuilder } from './ResponseBuilder';
 
 export const JoiValidatorMiddleware = (joiSchema: Schema): RequestHandler => {
     return async (req: Request, res: Response, next: NextFunction) => {
@@ -11,7 +12,7 @@ export const JoiValidatorMiddleware = (joiSchema: Schema): RequestHandler => {
             next()
         }catch(e){
             const errors = e.details.map((err: ValidationErrorItem) => ({message: err.message}))
-            return res.status(BAD_REQUEST).json({'status': 'error', 'data': errors});
+            return new ResponseBuilder(res, BAD_REQUEST).error().setData(errors).res()
         }
     }
 }
