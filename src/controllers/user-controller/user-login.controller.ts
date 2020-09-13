@@ -12,6 +12,7 @@ import { ResponseBuilder } from '@shared/classes/ResponseBuilder';
 
 import jwt from 'jsonwebtoken'
 import { compare } from 'bcrypt';
+import { IAccessTokenInterface } from '@shared/interfaces/access-token-payload.interface';
 
 
 export const UserLoginController: RequestHandler = async (req: Request, res: Response) => {
@@ -33,7 +34,7 @@ export const UserLoginController: RequestHandler = async (req: Request, res: Res
         if(!password_validate) return new ResponseBuilder(res, BAD_REQUEST).error().message('Wrong Password or Username.').res()
 
         old_user.password = '???'
-        const payload = {
+        const payload: IAccessTokenInterface = {
             exp: Math.floor(Date.now() / 1000) + (60 * 60),
             data: old_user.toObject()
         }
