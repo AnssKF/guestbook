@@ -30,7 +30,7 @@ export const UserCreateController: RequestHandler = async (req: Request, res: Re
         user.save((err, instance) => {
             if(err) return new ResponseBuilder(res, INTERNAL_SERVER_ERROR).error().message(K_ERR_MSGS.INTERNAL_SERVER_ERROR).res()
 
-            delete instance['password']
+            instance.password = '???'
             return new ResponseBuilder(res).success().setData(instance).res()
         })
         

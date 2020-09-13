@@ -5,7 +5,7 @@ export interface IUserSchema extends Document {
     last_name: string,
     username: string,
     email: string,
-    password?: string,
+    password: string,
 }
 
 export interface IUser extends IUserSchema {
