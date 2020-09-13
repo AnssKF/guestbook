@@ -1,5 +1,5 @@
 import Joi, { Schema } from 'joi'
-import { IUser } from 'src/models/user-model/user.interface'
+import { IUser } from '@shared/interfaces/user.interface'
 
 export const UserValidatorSchema: Schema = Joi.object<IUser>({
     first_name: Joi.string()

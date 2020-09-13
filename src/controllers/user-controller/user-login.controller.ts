@@ -2,13 +2,13 @@ import { RequestHandler, Request, Response } from 'express';
 import { INTERNAL_SERVER_ERROR, NOT_FOUND, BAD_REQUEST } from 'http-status-codes';
 
 import { UserModel } from 'src/models/user-model/user.model';
-import { IUser } from 'src/models/user-model/user.interface';
+import { IUser } from '@shared/interfaces/user.interface';
 
 import { K_ERR_MSGS } from '@shared/constants';
 import logger from '@shared/Logger';
 
-import { TUserLoginAPI } from 'src/core/interfaces/user.interface';
-import { ResponseBuilder } from '@shared/ResponseBuilder';
+import { TUserLoginAPI } from '@shared/interfaces/user.interface';
+import { ResponseBuilder } from '@shared/classes/ResponseBuilder';
 
 import jwt from 'jsonwebtoken'
 import { compare } from 'bcrypt';

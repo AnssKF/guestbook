@@ -2,9 +2,9 @@ import { Request, Response, RequestHandler } from 'express';
 import { CONFLICT, INTERNAL_SERVER_ERROR } from 'http-status-codes';
 
 import { UserModel } from 'src/models/user-model/user.model';
-import { IUserSchema } from 'src/models/user-model/user.interface';
+import { IUserSchema } from '@shared/interfaces/user.interface';
 
-import { ResponseBuilder } from '@shared/ResponseBuilder'
+import { ResponseBuilder } from '@shared/classes/ResponseBuilder'
 
 import logger from '@shared/Logger';
 import { K_ERR_MSGS } from '@shared/constants';
@@ -27,7 +27,7 @@ export const UserCreateController: RequestHandler = async (req: Request, res: Re
     try{
         const user = new UserModel(body);
 
-        user.save((err, instance) => {
+        user.save((err: any, instance: IUserSchema) => {
             if(err) return new ResponseBuilder(res, INTERNAL_SERVER_ERROR).error().message(K_ERR_MSGS.INTERNAL_SERVER_ERROR).res()
 
             instance.password = '???'

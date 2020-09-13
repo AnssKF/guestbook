@@ -1,7 +1,7 @@
 import { RequestHandler, Request, Response, NextFunction } from 'express';
 import { BAD_REQUEST } from 'http-status-codes';
 import { Schema, ValidationErrorItem } from 'joi';
-import { ResponseBuilder } from './ResponseBuilder';
+import { ResponseBuilder } from './classes/ResponseBuilder';
 
 export const JoiValidatorMiddleware = (joiSchema: Schema): RequestHandler => {
     return async (req: Request, res: Response, next: NextFunction) => {

@@ -13,3 +13,10 @@ export interface IUser extends IUserSchema {
 }
 
 export interface IUserModel extends Model<IUser> {}
+
+export type TUserLoginAPI = {
+    username?: string,
+    email?: string,
+    password: string
+}
+

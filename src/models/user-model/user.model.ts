@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { IUserSchema, IUser, IUserModel } from './user.interface';
+import { IUserSchema, IUser, IUserModel } from '@shared/interfaces/user.interface';
 
 import { hash } from 'bcrypt'
 
