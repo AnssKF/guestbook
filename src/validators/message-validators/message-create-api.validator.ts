@@ -7,6 +7,5 @@ export const MessageCreateAPIValidatorSchema: Schema = Joi.object({
                     .required(),
     content: Joi.string()
                     .min(10)
-                    .required(),
-    user: Joi.object()
+                    .required()
 })

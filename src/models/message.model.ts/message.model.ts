@@ -4,9 +4,10 @@ import { IMessageSchema, IReply } from '@shared/interfaces/message.interface';
 const ReplySchema = new Schema<IReply>({
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
-    message: {
+    text: {
         type: String,
         required: true
     }
@@ -15,7 +16,8 @@ const ReplySchema = new Schema<IReply>({
 const MessageSchema = new Schema<IMessageSchema>({
     user: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     title: {
         type: String,

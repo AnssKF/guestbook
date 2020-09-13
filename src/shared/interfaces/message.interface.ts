@@ -3,7 +3,7 @@ import { Model, Document } from 'mongoose';
 
 export interface IReply {
     user: IUserSchema,
-    message: string
+    text: string
 }
 
 export interface IMessageSchema extends Document {
