@@ -27,7 +27,7 @@ export const JoiValidatorMiddleware = (joiSchema: Schema): RequestHandler => {
 
 export const IsLoggedInMiddleware: RequestHandler = async (req: IRequestUser, res: Response, next: NextFunction) => {
     
-    const access_token = req.headers['authorization']?.split(' ')[1] || null
+    const access_token = req.headers['authorization'] || null
     
     if(!access_token) return new ResponseBuilder(res, UNAUTHORIZED).error().message('You are not authurized, Please login first.').res()
 
