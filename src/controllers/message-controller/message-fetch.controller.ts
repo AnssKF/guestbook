@@ -13,8 +13,8 @@ export const MessageListFetchController: RequestHandler = async (req: Request, r
     try{
         const messages = await MessageModel.find({})
             .sort({createdAt: -1})
-            .skip(per_page * page)
-            .limit(per_page)
+            // .skip(per_page * page)
+            // .limit(per_page)
             .populate('user', ['_id', 'first_name', 'last_name'] )
             .populate({
                 path: 'replies',
