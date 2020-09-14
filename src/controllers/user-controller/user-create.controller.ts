@@ -8,6 +8,8 @@ import { ResponseBuilder } from '@shared/classes/ResponseBuilder'
 
 import logger from '@shared/Logger';
 import { K_ERR_MSGS } from '@shared/constants';
+import jwt from 'jsonwebtoken'
+import { IAccessTokenInterface } from '@shared/interfaces/access-token-payload.interface';
 
 export const UserCreateController: RequestHandler = async (req: Request, res: Response) => {
 
@@ -15,9 +17,12 @@ export const UserCreateController: RequestHandler = async (req: Request, res: Re
     
     try{
 
-        const old_user = await UserModel.findOne({'username': body.username});
+        const old_user = await UserModel.findOne({$or: [
+            {username: body.username},
+            {email: body.email}
+        ]});
         if(old_user) 
-            return new ResponseBuilder(res, CONFLICT).error().message('This Username Exists Before.').res()
+            return new ResponseBuilder(res, CONFLICT).error().message('This Username/Email Exists Before.').res()
 
     }catch(e){
         logger.error(e)
@@ -31,7 +36,13 @@ export const UserCreateController: RequestHandler = async (req: Request, res: Re
             if(err) return new ResponseBuilder(res, INTERNAL_SERVER_ERROR).error().message(K_ERR_MSGS.INTERNAL_SERVER_ERROR).res()
 
             instance.password = '???'
-            return new ResponseBuilder(res).success().setData(instance).res()
+
+            const payload: IAccessTokenInterface = {
+                exp: Math.floor(Date.now() / 1000) + (60 * 60),
+                data: instance.toObject()
+            }
+            const token = jwt.sign(payload, process.env.JWT_SECRET_KEY!)
+            return new ResponseBuilder(res).success().setData({token}).res()
         })
         
     }catch(e) {
