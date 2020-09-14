@@ -3,6 +3,7 @@ import { json as JSONBodyParser } from 'body-parser'
 import morgan from 'morgan';
 import path from 'path';
 import helmet from 'helmet';
+import cors from 'cors'
 
 import express, { Request, Response, NextFunction } from 'express';
 import { BAD_REQUEST } from 'http-status-codes';
@@ -36,6 +37,10 @@ if (process.env.NODE_ENV === 'development') {
 if (process.env.NODE_ENV === 'production') {
     app.use(helmet());
 }
+
+app.use(cors({
+    origin: ['http://localhost:3000']
+}))
 
 // Add APIs
 app.use('/api', BaseRouter);
